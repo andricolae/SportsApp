@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsAppLibrary", "SportsAppLibrary\SportsAppLibrary.csproj", "{89919943-9D20-47CB-8DEB-1BF80700DF5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsAppUI", "SportsAppUI\SportsAppUI.csproj", "{A861B713-69DE-4E83-9AAD-884F186FB4CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89919943-9D20-47CB-8DEB-1BF80700DF5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89919943-9D20-47CB-8DEB-1BF80700DF5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89919943-9D20-47CB-8DEB-1BF80700DF5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89919943-9D20-47CB-8DEB-1BF80700DF5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A861B713-69DE-4E83-9AAD-884F186FB4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A861B713-69DE-4E83-9AAD-884F186FB4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A861B713-69DE-4E83-9AAD-884F186FB4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A861B713-69DE-4E83-9AAD-884F186FB4CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53735F61-FFAE-4315-ABC5-FD1097823CBF}
+	EndGlobalSection
+EndGlobal
