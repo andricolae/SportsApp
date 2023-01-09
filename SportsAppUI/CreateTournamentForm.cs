@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace SportsAppUI
 {
-    public partial class TournamentViewer : Form
+    public partial class CreateTournamentForm : Form
     {
-        public TournamentViewer()
+        public CreateTournamentForm()
         {
             InitializeComponent();
+        }
+
+        private void RoundLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

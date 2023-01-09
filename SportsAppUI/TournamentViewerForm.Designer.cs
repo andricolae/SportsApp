@@ -1,6 +1,6 @@
 ﻿namespace SportsAppUI
 {
-    partial class TournamentViewer
+    partial class TournamentViewerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TournamentViewer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TournamentViewerForm));
             this.HeaderLabel = new System.Windows.Forms.Label();
             this.TournamentNameLabel = new System.Windows.Forms.Label();
             this.RoundLabel = new System.Windows.Forms.Label();
-            this.roundDropDown = new System.Windows.Forms.ComboBox();
+            this.RoundDropDown = new System.Windows.Forms.ComboBox();
             this.UnplayedOnlyCheckBox = new System.Windows.Forms.CheckBox();
             this.MatchUpListBox = new System.Windows.Forms.ListBox();
             this.FirstTeamLabel = new System.Windows.Forms.Label();
@@ -52,7 +52,7 @@
             this.HeaderLabel.ForeColor = System.Drawing.Color.White;
             this.HeaderLabel.Location = new System.Drawing.Point(26, 45);
             this.HeaderLabel.Name = "HeaderLabel";
-            this.HeaderLabel.Size = new System.Drawing.Size(309, 54);
+            this.HeaderLabel.Size = new System.Drawing.Size(247, 43);
             this.HeaderLabel.TabIndex = 0;
             this.HeaderLabel.Text = "Tournament:";
             // 
@@ -72,17 +72,17 @@
             this.RoundLabel.AutoSize = true;
             this.RoundLabel.Location = new System.Drawing.Point(28, 128);
             this.RoundLabel.Name = "RoundLabel";
-            this.RoundLabel.Size = new System.Drawing.Size(129, 40);
+            this.RoundLabel.Size = new System.Drawing.Size(103, 32);
             this.RoundLabel.TabIndex = 2;
             this.RoundLabel.Text = "Round";
             // 
-            // roundDropDown
+            // RoundDropDown
             // 
-            this.roundDropDown.FormattingEnabled = true;
-            this.roundDropDown.Location = new System.Drawing.Point(163, 125);
-            this.roundDropDown.Name = "roundDropDown";
-            this.roundDropDown.Size = new System.Drawing.Size(237, 39);
-            this.roundDropDown.TabIndex = 3;
+            this.RoundDropDown.FormattingEnabled = true;
+            this.RoundDropDown.Location = new System.Drawing.Point(163, 125);
+            this.RoundDropDown.Name = "RoundDropDown";
+            this.RoundDropDown.Size = new System.Drawing.Size(237, 39);
+            this.RoundDropDown.TabIndex = 3;
             // 
             // UnplayedOnlyCheckBox
             // 
@@ -173,7 +173,7 @@
             this.ScoreButton.Text = "Log Score";
             this.ScoreButton.UseVisualStyleBackColor = true;
             // 
-            // TournamentViewer
+            // TournamentViewerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -189,15 +189,15 @@
             this.Controls.Add(this.FirstTeamLabel);
             this.Controls.Add(this.MatchUpListBox);
             this.Controls.Add(this.UnplayedOnlyCheckBox);
-            this.Controls.Add(this.roundDropDown);
+            this.Controls.Add(this.RoundDropDown);
             this.Controls.Add(this.RoundLabel);
             this.Controls.Add(this.TournamentNameLabel);
             this.Controls.Add(this.HeaderLabel);
             this.Font = new System.Drawing.Font("Eras Demi ITC", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.Name = "TournamentViewer";
+            this.Margin = new System.Windows.Forms.Padding(6);
+            this.Name = "TournamentViewerForm";
             this.Text = "Tournament Viewer";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -209,7 +209,7 @@
         private System.Windows.Forms.Label HeaderLabel;
         private System.Windows.Forms.Label TournamentNameLabel;
         private System.Windows.Forms.Label RoundLabel;
-        private System.Windows.Forms.ComboBox roundDropDown;
+        private System.Windows.Forms.ComboBox RoundDropDown;
         private System.Windows.Forms.CheckBox UnplayedOnlyCheckBox;
         private System.Windows.Forms.ListBox MatchUpListBox;
         private System.Windows.Forms.Label FirstTeamLabel;

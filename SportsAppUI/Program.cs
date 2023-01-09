@@ -16,7 +16,7 @@ namespace SportsAppUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TournamentViewer());
+            Application.Run(new TournamentViewerForm());
         }
     }
 }
