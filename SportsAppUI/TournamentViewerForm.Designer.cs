@@ -166,9 +166,9 @@
             // ScoreButton
             // 
             this.ScoreButton.ForeColor = System.Drawing.Color.Black;
-            this.ScoreButton.Location = new System.Drawing.Point(456, 447);
+            this.ScoreButton.Location = new System.Drawing.Point(456, 445);
             this.ScoreButton.Name = "ScoreButton";
-            this.ScoreButton.Size = new System.Drawing.Size(163, 41);
+            this.ScoreButton.Size = new System.Drawing.Size(163, 43);
             this.ScoreButton.TabIndex = 13;
             this.ScoreButton.Text = "Log Score";
             this.ScoreButton.UseVisualStyleBackColor = true;

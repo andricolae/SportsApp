@@ -81,7 +81,7 @@
             this.EntryFeeLabel.AutoSize = true;
             this.EntryFeeLabel.Location = new System.Drawing.Point(47, 210);
             this.EntryFeeLabel.Name = "EntryFeeLabel";
-            this.EntryFeeLabel.Size = new System.Drawing.Size(175, 40);
+            this.EntryFeeLabel.Size = new System.Drawing.Size(140, 32);
             this.EntryFeeLabel.TabIndex = 28;
             this.EntryFeeLabel.Text = "Entry Fee";
             // 
@@ -106,7 +106,7 @@
             this.SelectTeamLabel.AutoSize = true;
             this.SelectTeamLabel.Location = new System.Drawing.Point(47, 270);
             this.SelectTeamLabel.Name = "SelectTeamLabel";
-            this.SelectTeamLabel.Size = new System.Drawing.Size(214, 40);
+            this.SelectTeamLabel.Size = new System.Drawing.Size(171, 32);
             this.SelectTeamLabel.TabIndex = 30;
             this.SelectTeamLabel.Text = "Select Team";
             // 
@@ -201,9 +201,9 @@
             // 
             this.CreateTournamentButton.Font = new System.Drawing.Font("Eras Demi ITC", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateTournamentButton.ForeColor = System.Drawing.Color.Black;
-            this.CreateTournamentButton.Location = new System.Drawing.Point(29, 543);
+            this.CreateTournamentButton.Location = new System.Drawing.Point(29, 537);
             this.CreateTournamentButton.Name = "CreateTournamentButton";
-            this.CreateTournamentButton.Size = new System.Drawing.Size(342, 41);
+            this.CreateTournamentButton.Size = new System.Drawing.Size(342, 47);
             this.CreateTournamentButton.TabIndex = 41;
             this.CreateTournamentButton.Text = "Create Tournament";
             this.CreateTournamentButton.UseVisualStyleBackColor = true;
@@ -234,7 +234,7 @@
             this.Font = new System.Drawing.Font("Eras Demi ITC", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "CreateTournamentForm";
             this.Text = "Create Tournament";
             this.ResumeLayout(false);
