@@ -24,10 +24,19 @@ namespace SportsAppLibrary
         /// <summary>
         /// The value in money of the prize
         /// </summary>
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         /// <summary>
         /// The prize value in percentage
         /// </summary>
         public double Percentage { get; set; }
+        public Prize()
+        {}
+        public Prize(string placeNumber, string placeName, string prizeAmount, string prizePercentage)
+        {
+            Place = int.Parse(placeNumber);
+            PlaceName = placeName;
+            Amount = decimal.Parse(prizeAmount);
+            Percentage = double.Parse(prizePercentage);
+        }
     }
 }
