@@ -65,10 +65,8 @@ namespace SportsAppUI
                 Prize model = new Prize(PlaceNumberTextBox.Text, PlaceNameTextBox.Text,
                     PrizeAmountTextBox.Text, PrizePercentageTextBox.Text);
 
-                foreach (IDataConnection dc in GlobalConfiguration.Connections)
-                {
-                    dc.CreatePrize(model);
-                }
+                GlobalConfiguration.Connection.CreatePrize(model);
+
                 PlaceNumberTextBox.Text = "";
                 PlaceNameTextBox.Text = "";
                 PrizeAmountTextBox.Text = "0"; 
