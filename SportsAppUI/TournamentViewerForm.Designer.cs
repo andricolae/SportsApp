@@ -50,7 +50,7 @@
             this.HeaderLabel.AutoSize = true;
             this.HeaderLabel.Font = new System.Drawing.Font("Eras Demi ITC", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HeaderLabel.ForeColor = System.Drawing.Color.White;
-            this.HeaderLabel.Location = new System.Drawing.Point(26, 45);
+            this.HeaderLabel.Location = new System.Drawing.Point(12, 40);
             this.HeaderLabel.Name = "HeaderLabel";
             this.HeaderLabel.Size = new System.Drawing.Size(247, 43);
             this.HeaderLabel.TabIndex = 0;
@@ -61,7 +61,7 @@
             this.TournamentNameLabel.AutoSize = true;
             this.TournamentNameLabel.Font = new System.Drawing.Font("Eras Demi ITC", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TournamentNameLabel.ForeColor = System.Drawing.Color.White;
-            this.TournamentNameLabel.Location = new System.Drawing.Point(269, 45);
+            this.TournamentNameLabel.Location = new System.Drawing.Point(255, 40);
             this.TournamentNameLabel.Name = "TournamentNameLabel";
             this.TournamentNameLabel.Size = new System.Drawing.Size(57, 43);
             this.TournamentNameLabel.TabIndex = 1;
@@ -70,7 +70,7 @@
             // RoundLabel
             // 
             this.RoundLabel.AutoSize = true;
-            this.RoundLabel.Location = new System.Drawing.Point(28, 128);
+            this.RoundLabel.Location = new System.Drawing.Point(36, 108);
             this.RoundLabel.Name = "RoundLabel";
             this.RoundLabel.Size = new System.Drawing.Size(103, 32);
             this.RoundLabel.TabIndex = 2;
@@ -79,7 +79,7 @@
             // RoundDropDown
             // 
             this.RoundDropDown.FormattingEnabled = true;
-            this.RoundDropDown.Location = new System.Drawing.Point(163, 125);
+            this.RoundDropDown.Location = new System.Drawing.Point(171, 105);
             this.RoundDropDown.Name = "RoundDropDown";
             this.RoundDropDown.Size = new System.Drawing.Size(237, 39);
             this.RoundDropDown.TabIndex = 3;
@@ -88,7 +88,7 @@
             // 
             this.UnplayedOnlyCheckBox.AutoSize = true;
             this.UnplayedOnlyCheckBox.Font = new System.Drawing.Font("Eras Demi ITC", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UnplayedOnlyCheckBox.Location = new System.Drawing.Point(163, 179);
+            this.UnplayedOnlyCheckBox.Location = new System.Drawing.Point(171, 159);
             this.UnplayedOnlyCheckBox.Name = "UnplayedOnlyCheckBox";
             this.UnplayedOnlyCheckBox.Size = new System.Drawing.Size(196, 30);
             this.UnplayedOnlyCheckBox.TabIndex = 4;
@@ -99,7 +99,7 @@
             // 
             this.MatchUpListBox.FormattingEnabled = true;
             this.MatchUpListBox.ItemHeight = 31;
-            this.MatchUpListBox.Location = new System.Drawing.Point(34, 236);
+            this.MatchUpListBox.Location = new System.Drawing.Point(42, 216);
             this.MatchUpListBox.Name = "MatchUpListBox";
             this.MatchUpListBox.Size = new System.Drawing.Size(366, 252);
             this.MatchUpListBox.TabIndex = 5;
@@ -107,7 +107,7 @@
             // FirstTeamLabel
             // 
             this.FirstTeamLabel.AutoSize = true;
-            this.FirstTeamLabel.Location = new System.Drawing.Point(437, 168);
+            this.FirstTeamLabel.Location = new System.Drawing.Point(445, 148);
             this.FirstTeamLabel.Name = "FirstTeamLabel";
             this.FirstTeamLabel.Size = new System.Drawing.Size(166, 32);
             this.FirstTeamLabel.TabIndex = 6;
@@ -116,7 +116,7 @@
             // FirstTeamScoreLabel
             // 
             this.FirstTeamScoreLabel.AutoSize = true;
-            this.FirstTeamScoreLabel.Location = new System.Drawing.Point(437, 215);
+            this.FirstTeamScoreLabel.Location = new System.Drawing.Point(445, 195);
             this.FirstTeamScoreLabel.Name = "FirstTeamScoreLabel";
             this.FirstTeamScoreLabel.Size = new System.Drawing.Size(86, 32);
             this.FirstTeamScoreLabel.TabIndex = 7;
@@ -125,7 +125,7 @@
             // SecondTeamScoreLabel
             // 
             this.SecondTeamScoreLabel.AutoSize = true;
-            this.SecondTeamScoreLabel.Location = new System.Drawing.Point(437, 388);
+            this.SecondTeamScoreLabel.Location = new System.Drawing.Point(445, 368);
             this.SecondTeamScoreLabel.Name = "SecondTeamScoreLabel";
             this.SecondTeamScoreLabel.Size = new System.Drawing.Size(86, 32);
             this.SecondTeamScoreLabel.TabIndex = 9;
@@ -134,7 +134,7 @@
             // SecondTeamLabel
             // 
             this.SecondTeamLabel.AutoSize = true;
-            this.SecondTeamLabel.Location = new System.Drawing.Point(437, 341);
+            this.SecondTeamLabel.Location = new System.Drawing.Point(445, 321);
             this.SecondTeamLabel.Name = "SecondTeamLabel";
             this.SecondTeamLabel.Size = new System.Drawing.Size(211, 32);
             this.SecondTeamLabel.TabIndex = 8;
@@ -142,14 +142,14 @@
             // 
             // FirstTeamScoreValue
             // 
-            this.FirstTeamScoreValue.Location = new System.Drawing.Point(529, 208);
+            this.FirstTeamScoreValue.Location = new System.Drawing.Point(537, 188);
             this.FirstTeamScoreValue.Name = "FirstTeamScoreValue";
             this.FirstTeamScoreValue.Size = new System.Drawing.Size(100, 39);
             this.FirstTeamScoreValue.TabIndex = 10;
             // 
             // SecondTeamScoreValue
             // 
-            this.SecondTeamScoreValue.Location = new System.Drawing.Point(529, 381);
+            this.SecondTeamScoreValue.Location = new System.Drawing.Point(537, 361);
             this.SecondTeamScoreValue.Name = "SecondTeamScoreValue";
             this.SecondTeamScoreValue.Size = new System.Drawing.Size(100, 39);
             this.SecondTeamScoreValue.TabIndex = 11;
@@ -157,7 +157,7 @@
             // vsLabel
             // 
             this.vsLabel.AutoSize = true;
-            this.vsLabel.Location = new System.Drawing.Point(481, 282);
+            this.vsLabel.Location = new System.Drawing.Point(489, 262);
             this.vsLabel.Name = "vsLabel";
             this.vsLabel.Size = new System.Drawing.Size(112, 32);
             this.vsLabel.TabIndex = 12;
@@ -166,7 +166,7 @@
             // ScoreButton
             // 
             this.ScoreButton.ForeColor = System.Drawing.Color.Black;
-            this.ScoreButton.Location = new System.Drawing.Point(456, 445);
+            this.ScoreButton.Location = new System.Drawing.Point(464, 425);
             this.ScoreButton.Name = "ScoreButton";
             this.ScoreButton.Size = new System.Drawing.Size(163, 43);
             this.ScoreButton.TabIndex = 13;

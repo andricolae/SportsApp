@@ -15,6 +15,6 @@ namespace SportsAppLibrary
         /// <summary>
         /// The list with the teams members
         /// </summary>
-        public List<Person> TeamMembers { get; set; } = new List<Person>;
+        public List<Person> TeamMembers { get; set; } = new List<Person>();
     }
 }

@@ -115,5 +115,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SportsAppLibrary\SportsAppLibrary.csproj">
+      <Project>{89919943-9d20-47cb-8deb-1bf80700df5f}</Project>
+      <Name>SportsAppLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

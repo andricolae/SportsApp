@@ -9,6 +9,10 @@ namespace SportsAppLibrary
     public class Prize
     {
         /// <summary>
+        /// Stores a unique identifier for the prize
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// The place no., ex. 1/ 2/ 3
         /// </summary>
         public int Place { get; set; }
