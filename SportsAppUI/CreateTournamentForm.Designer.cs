@@ -63,7 +63,6 @@
             this.TournamentNameLabel.Size = new System.Drawing.Size(265, 32);
             this.TournamentNameLabel.TabIndex = 16;
             this.TournamentNameLabel.Text = "Tournament Name";
-            this.TournamentNameLabel.Click += new System.EventHandler(this.RoundLabel_Click);
             // 
             // CreateTournamentLabel
             // 
@@ -96,9 +95,9 @@
             // SelectTeamDropDown
             // 
             this.SelectTeamDropDown.FormattingEnabled = true;
-            this.SelectTeamDropDown.Location = new System.Drawing.Point(87, 310);
+            this.SelectTeamDropDown.Location = new System.Drawing.Point(45, 310);
             this.SelectTeamDropDown.Name = "SelectTeamDropDown";
-            this.SelectTeamDropDown.Size = new System.Drawing.Size(276, 39);
+            this.SelectTeamDropDown.Size = new System.Drawing.Size(318, 39);
             this.SelectTeamDropDown.TabIndex = 31;
             // 
             // SelectTeamLabel
@@ -130,6 +129,7 @@
             this.AddTeamButton.TabIndex = 33;
             this.AddTeamButton.Text = "Add Team";
             this.AddTeamButton.UseVisualStyleBackColor = true;
+            this.AddTeamButton.Click += new System.EventHandler(this.AddTeamButton_Click);
             // 
             // CreatePrizeButton
             // 
@@ -172,7 +172,7 @@
             // DeleteSelectedPrizesButton
             // 
             this.DeleteSelectedPrizesButton.ForeColor = System.Drawing.Color.Black;
-            this.DeleteSelectedPrizesButton.Location = new System.Drawing.Point(483, 588);
+            this.DeleteSelectedPrizesButton.Location = new System.Drawing.Point(483, 567);
             this.DeleteSelectedPrizesButton.Name = "DeleteSelectedPrizesButton";
             this.DeleteSelectedPrizesButton.Size = new System.Drawing.Size(226, 41);
             this.DeleteSelectedPrizesButton.TabIndex = 40;
@@ -182,7 +182,7 @@
             // PrizesLabel
             // 
             this.PrizesLabel.AutoSize = true;
-            this.PrizesLabel.Location = new System.Drawing.Point(404, 418);
+            this.PrizesLabel.Location = new System.Drawing.Point(404, 397);
             this.PrizesLabel.Name = "PrizesLabel";
             this.PrizesLabel.Size = new System.Drawing.Size(90, 32);
             this.PrizesLabel.TabIndex = 39;
@@ -192,7 +192,7 @@
             // 
             this.PrizesListBox.FormattingEnabled = true;
             this.PrizesListBox.ItemHeight = 31;
-            this.PrizesListBox.Location = new System.Drawing.Point(410, 453);
+            this.PrizesListBox.Location = new System.Drawing.Point(410, 432);
             this.PrizesListBox.Name = "PrizesListBox";
             this.PrizesListBox.Size = new System.Drawing.Size(374, 128);
             this.PrizesListBox.TabIndex = 38;
@@ -201,7 +201,7 @@
             // 
             this.CreateTournamentButton.Font = new System.Drawing.Font("Eras Demi ITC", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreateTournamentButton.ForeColor = System.Drawing.Color.Black;
-            this.CreateTournamentButton.Location = new System.Drawing.Point(21, 534);
+            this.CreateTournamentButton.Location = new System.Drawing.Point(20, 561);
             this.CreateTournamentButton.Name = "CreateTournamentButton";
             this.CreateTournamentButton.Size = new System.Drawing.Size(342, 47);
             this.CreateTournamentButton.TabIndex = 41;

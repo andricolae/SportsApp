@@ -12,5 +12,6 @@ namespace SportsAppLibrary
         Person CreatePerson(Person model);
         List<Person> GetAllPersons();
         Team CreateTeam(Team model);
+        List<Team> GetAllTeams();
     }
 }

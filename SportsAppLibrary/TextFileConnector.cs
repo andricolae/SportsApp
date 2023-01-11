@@ -59,5 +59,10 @@ namespace SportsAppLibrary
         {
             return PERSONSFILE.FullFilePath().LoadFile().ConvertToPerson();
         }
+
+        public List<Team> GetAllTeams()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

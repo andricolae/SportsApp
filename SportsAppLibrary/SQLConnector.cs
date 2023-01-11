@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -89,6 +90,24 @@ namespace SportsAppLibrary
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfiguration.ConnectionString(DB)))
             {
                 output = connection.Query<Person>("dbo.spPerson_SelectAll").ToList();
+            }
+            return output;
+        }
+
+        public List<Team> GetAllTeams()
+        {
+            List<Team> output;
+
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfiguration.ConnectionString(DB)))
+            {
+                output = connection.Query<Team>("dbo.spTeam_SelectAll").ToList();
+
+                foreach (Team team in output)
+                {
+                    var t = new DynamicParameters();
+                    t.Add("@TeamId", team.Id);
+                    team.TeamMembers = connection.Query<Person>("dbo.spTeamMembers_SelectByTeam", t, commandType: CommandType.StoredProcedure).ToList();
+                }
             }
             return output;
         }
