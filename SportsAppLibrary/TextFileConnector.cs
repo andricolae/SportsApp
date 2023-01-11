@@ -62,7 +62,7 @@ namespace SportsAppLibrary
 
         public List<Team> GetAllTeams()
         {
-            throw new NotImplementedException();
+            return TEAMSFILE.FullFilePath().LoadFile().ConvertToTeam(PERSONSFILE);
         }
     }
 }

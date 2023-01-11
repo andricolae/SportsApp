@@ -96,6 +96,7 @@ namespace SportsAppLibrary.TextHelpers
                 {
                     team.TeamMembers.Add(person.Where(x => x.Id == int.Parse(id)).First());
                 }
+                output.Add(team);
             }
             return output;
         }
@@ -119,7 +120,7 @@ namespace SportsAppLibrary.TextHelpers
             }
             foreach (Person person in persons)
             {
-                output += $"{person.Id} | ";
+                output += $"{person.Id}|";
             }
             output = output.Substring(0, output.Length - 1);
             return output;

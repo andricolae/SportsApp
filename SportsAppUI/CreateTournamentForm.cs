@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace SportsAppUI
 {
-    public partial class CreateTournamentForm : Form
+    public partial class CreateTournamentForm : Form, IPrizeCreator, ITeamCreator
     {
         List<Team> insertedTeams = GlobalConfiguration.Connection.GetAllTeams();
         List<Team> addedTeams = new List<Team>();
@@ -46,6 +46,52 @@ namespace SportsAppUI
             {
                 insertedTeams.Remove(team);
                 addedTeams.Add(team);
+                PopulateLists();
+            }
+        }
+
+        private void CreatePrizeButton_Click(object sender, EventArgs e)
+        {
+            CreatePrizeForm form = new CreatePrizeForm(this);
+            form.Show();
+
+        }
+
+        public void PrizeCreated(Prize model)
+        {
+            addedPrizes.Add(model);
+            PopulateLists();
+        }
+
+        public void TeamCreatead(Team model)
+        {
+            addedTeams.Add(model);
+            PopulateLists();
+        }
+
+        private void CreateTeamButton_Click(object sender, EventArgs e)
+        {
+            CreateTeamForm form = new CreateTeamForm(this);
+            form.Show();
+        }
+
+        private void RemoveSelectedTeamButton_Click(object sender, EventArgs e)
+        {
+            Team team = (Team)TournamentTeamsListBox.SelectedItem;
+            if (team != null)
+            {
+                addedTeams.Remove(team);
+                insertedTeams.Add(team);
+                PopulateLists();
+            }
+        }
+
+        private void RemoveSelectedPrizesButton_Click(object sender, EventArgs e)
+        {
+            Prize prize = (Prize)PrizesListBox.SelectedItem;
+            if (prize != null)
+            {
+                addedPrizes.Remove(prize);
                 PopulateLists();
             }
         }

@@ -16,13 +16,11 @@ namespace SportsAppLibrary
         {
             if (db == DatabaseType.Sql)
             {
-                // TODO - SetUp the SQL Connector
                 SQLConnector sql = new SQLConnector();
                 Connection = sql;
             }
             else if (db == DatabaseType.TextFile)
             {
-                // TODO - Create the Text File Connection
                 TextFileConnector text = new TextFileConnector();
                 Connection = text;
             }

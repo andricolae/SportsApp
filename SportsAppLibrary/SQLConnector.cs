@@ -31,7 +31,6 @@ namespace SportsAppLibrary
             }
         }
 
-        // TODO - Make the CreatePrize metod save to the DB
         /// <summary>
         /// Stores a new generated prize to the database
         /// </summary>

@@ -15,12 +15,14 @@ namespace SportsAppUI
 {
     public partial class CreatePrizeForm : Form
     {
-        public CreatePrizeForm()
+        IPrizeCreator callingForm;
+        public CreatePrizeForm(IPrizeCreator caller)
         {
             InitializeComponent();
+            callingForm = caller;
         }
 
-        // TODO - Alert the user of all the invalidation reasons
+        // TODO - Alert the user of all the specific invalid fields
         private bool ValidateForm()
         {
             bool output = true;
@@ -66,6 +68,10 @@ namespace SportsAppUI
                     PrizeAmountTextBox.Text, PrizePercentageTextBox.Text);
 
                 GlobalConfiguration.Connection.CreatePrize(model);
+
+                callingForm.PrizeCreated(model);
+
+                this.Close();
 
                 PlaceNumberTextBox.Text = "";
                 PlaceNameTextBox.Text = "";

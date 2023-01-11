@@ -16,19 +16,12 @@ namespace SportsAppUI
     {
         private List<Person> insertedPersons = GlobalConfiguration.Connection.GetAllPersons();
         private List<Person> addedTeamMembers = new List<Person>();
-        public CreateTeamForm()
+        private ITeamCreator callingForm;
+        public CreateTeamForm(ITeamCreator caller)
         {
             InitializeComponent();
-            //CreateSampleData();
+            callingForm = caller;
             PopulateLists();
-        }
-
-        private void CreateSampleData()
-        {
-            insertedPersons.Add(new Person { FirstName = "Nico", LastName = "Pop" });
-            insertedPersons.Add(new Person { FirstName = "Andrei", LastName = "Nicolae" });
-            addedTeamMembers.Add(new Person { FirstName = "Marius", LastName = "Calutiu" });
-            addedTeamMembers.Add(new Person { FirstName = "Vlad", LastName = "Gherghe" });
         }
 
         private void PopulateLists()
@@ -119,7 +112,9 @@ namespace SportsAppUI
             Team team = new Team();
             team.TeamName = TeamNameTextBox.Text;
             team.TeamMembers = addedTeamMembers;
-            team = GlobalConfiguration.Connection.CreateTeam(team);
+            GlobalConfiguration.Connection.CreateTeam(team);
+            callingForm.TeamCreatead(team);
+            this.Close();
         }
     }
 }
