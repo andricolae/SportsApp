@@ -20,7 +20,7 @@ namespace SportsAppUI
             // Initialize the DB connections
             SportsAppLibrary.GlobalConfiguration.InitializeConnections(SportsAppLibrary.DatabaseType.TextFile);
 
-            Application.Run(new CreatePrizeForm());
+            Application.Run(new CreateTeamForm());
             //Application.Run(new TournamentDashboardForm());
         }
     }

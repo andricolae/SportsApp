@@ -9,5 +9,8 @@ namespace SportsAppLibrary
     public interface IDataConnection
     {
         Prize CreatePrize(Prize model);
+        Person CreatePerson(Person model);
+        List<Person> GetAllPersons();
+        Team CreateTeam(Team model);
     }
 }

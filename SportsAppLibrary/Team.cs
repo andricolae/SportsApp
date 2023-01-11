@@ -8,6 +8,7 @@ namespace SportsAppLibrary
 {
     public class Team
     {
+        public int Id { get; set; }
         /// <summary>
         /// The teams name
         /// </summary>

@@ -9,6 +9,10 @@ namespace SportsAppLibrary
     public class Person
     {
         /// <summary>
+        /// The unique identifier for each Person in the DB
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// The team players first name
         /// </summary>
         public string FirstName { get; set; }
@@ -24,5 +28,13 @@ namespace SportsAppLibrary
         /// The team players phone number
         /// </summary>
         public string Phone { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}"; 
+            }
+        }
     }
 }
