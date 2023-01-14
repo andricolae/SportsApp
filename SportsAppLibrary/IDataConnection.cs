@@ -13,5 +13,6 @@ namespace SportsAppLibrary
         List<Person> GetAllPersons();
         Team CreateTeam(Team model);
         List<Team> GetAllTeams();
+        void CreateTournament(Tournament model);
     }
 }

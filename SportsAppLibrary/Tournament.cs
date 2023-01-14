@@ -9,6 +9,10 @@ namespace SportsAppLibrary
     public class Tournament
     {
         /// <summary>
+        /// A unique identifier for each Tournament
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// The name of the tournament
         /// </summary>
         public string TournamentName { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using SportsAppLibrary.TextHelpers;
@@ -12,6 +13,7 @@ namespace SportsAppLibrary
         private const string PRIZESFILE = "Prizes.csv";
         private const string PERSONSFILE = "Persons.csv";
         private const string TEAMSFILE = "Teams.csv";
+        private const string TOURNAMENTFILE = "Tournaments.csv";
 
         public Person CreatePerson(Person model)
         {
@@ -53,6 +55,19 @@ namespace SportsAppLibrary
             teams.Add(model);
             teams.SaveToTeamFile(TEAMSFILE);
             return model;
+        }
+
+        public void CreateTournament(Tournament model)
+        {
+            List<Tournament> tournaments = TOURNAMENTFILE.FullFilePath().LoadFile().ConvertToTournament(TEAMSFILE, PERSONSFILE, PRIZESFILE);
+            int currentId = 1;
+            if (tournaments.Count > 0)
+            {
+                currentId = tournaments.OrderByDescending(x => x.Id).First().Id + 1;
+            }
+            model.Id = currentId;
+            tournaments.Add(model);
+            tournaments.SaveToTournamentFile(TOURNAMENTFILE);
         }
 
         public List<Person> GetAllPersons()

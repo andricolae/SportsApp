@@ -82,6 +82,41 @@ namespace SportsAppLibrary
             }
         }
 
+        public void CreateTournament(Tournament model)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfiguration.ConnectionString(DB)))
+            {
+                var t = new DynamicParameters();
+                t.Add("@TournamentName", model.TournamentName);
+                t.Add("@EntryFee", model.Fee);
+                t.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                connection.Execute("dbo.spTournament_Insert", t, commandType: CommandType.StoredProcedure);
+
+                model.Id = t.Get<int>("@id");
+
+                foreach (Prize pz in model.Prizes)
+                {
+                    t = new DynamicParameters();
+                    t.Add("@TournamentId", model.Id);
+                    t.Add("@PrizeId", pz.Id);
+                    t.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                    connection.Execute("dbo.spTournamentPrize_Insert", t, commandType: CommandType.StoredProcedure);
+                }
+
+                foreach (Team tm in model.Teams)
+                {
+                    t = new DynamicParameters();
+                    t.Add("@TournamentId", model.Id);
+                    t.Add("@Team.Id", tm.Id);
+                    t.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                    connection.Execute("dbo.spTournamentEntry_Insert", t, commandType: CommandType.StoredProcedure);
+                }
+            }
+        }
+
         public List<Person> GetAllPersons()
         {
             List<Person> output;

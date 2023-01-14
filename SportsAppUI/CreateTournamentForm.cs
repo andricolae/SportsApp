@@ -95,5 +95,35 @@ namespace SportsAppUI
                 PopulateLists();
             }
         }
+
+        private void CreateTournamentButton_Click(object sender, EventArgs e)
+        {
+            double fee = 0;
+            bool feeOK = double.TryParse(EntryFeeTextBox.Text, out fee);
+            if (!feeOK)
+            {
+                MessageBox.Show("Entry Fee not valid!", "Valid number needed", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Tournament tournament = new Tournament();
+            tournament.TournamentName = TournamentNameTextBox.Text;
+            tournament.Fee = fee;
+
+            foreach (Prize prize in addedPrizes) 
+            {
+                tournament.Prizes.Add(prize);
+            }
+
+            foreach (Team team in addedTeams)
+            {
+                tournament.Teams.Add(team);
+            }
+
+
+
+            GlobalConfiguration.Connection.CreateTournament(tournament);
+        }
     }
 }

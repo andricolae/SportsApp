@@ -9,6 +9,10 @@ namespace SportsAppLibrary
     public class Matchup
     {
         /// <summary>
+        /// A unique identifier for each round
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
         /// Consists in the teams matched up in a rounds match 
         /// </summary>
         public List<MatchupEntry> Entries { get; set; } = new List<MatchupEntry>();
