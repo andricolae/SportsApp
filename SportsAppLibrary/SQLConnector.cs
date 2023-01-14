@@ -114,6 +114,32 @@ namespace SportsAppLibrary
 
                     connection.Execute("dbo.spTournamentEntry_Insert", t, commandType: CommandType.StoredProcedure);
                 }
+
+                foreach (List<Matchup> round in model.Rounds)
+                {
+                    foreach (Matchup match in round)
+                    {
+                        var r = new DynamicParameters();
+                        r.Add("TournamentId", model.Id);
+                        r.Add("@MatchupRound", match.MatchupRound);
+                        r.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                        connection.Execute("dbo.spMatchup_Insert", r, commandType: CommandType.StoredProcedure);
+
+                        match.Id = r.Get<int>("@id");
+
+                        foreach (MatchupEntry entry in match.Entries)
+                        {
+                            r = new DynamicParameters();
+                            r.Add("@MatchupId", match.Id);
+                            r.Add("@ParentMatchupId", entry.ParentMatchup);
+                            r.Add("@TeamCompetingId", entry.Team.Id);
+                            r.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                            connection.Execute("dbo.spMatchupEntry_Insert", e, commandType: CommandType.StoredProcedure)
+                        }
+                    }
+                }
             }
         }
 

@@ -152,6 +152,8 @@ namespace SportsAppLibrary.TextHelpers
                     tournament.Prizes.Add(prizes.Where(x => x.Id == int.Parse(id)).First());
                 }
 
+
+
                 output.Add(tournament);
             }
             return output;

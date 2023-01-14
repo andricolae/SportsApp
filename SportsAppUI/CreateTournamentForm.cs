@@ -121,7 +121,7 @@ namespace SportsAppUI
                 tournament.Teams.Add(team);
             }
 
-
+            TournamentWork.CreateRounds(tournament);
 
             GlobalConfiguration.Connection.CreateTournament(tournament);
         }

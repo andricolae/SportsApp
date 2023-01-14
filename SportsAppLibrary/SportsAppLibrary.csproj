@@ -58,6 +58,7 @@
     <Compile Include="TextConnectorProcessor.cs" />
     <Compile Include="TextFileConnector.cs" />
     <Compile Include="Tournament.cs" />
+    <Compile Include="TournamentWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
