@@ -14,6 +14,8 @@ namespace SportsAppLibrary
         private const string PERSONSFILE = "Persons.csv";
         private const string TEAMSFILE = "Teams.csv";
         private const string TOURNAMENTFILE = "Tournaments.csv";
+        private const string MATCHUPFILE = "Matchups.csv";
+        private const string MATCHUPENTRYFILE = "MatchupEntries.csv";
 
         public Person CreatePerson(Person model)
         {
@@ -66,6 +68,7 @@ namespace SportsAppLibrary
                 currentId = tournaments.OrderByDescending(x => x.Id).First().Id + 1;
             }
             model.Id = currentId;
+            model.SaveToRoundsFile(MATCHUPFILE, MATCHUPENTRYFILE);
             tournaments.Add(model);
             tournaments.SaveToTournamentFile(TOURNAMENTFILE);
         }

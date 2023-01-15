@@ -9,8 +9,14 @@ namespace SportsAppLibrary
 {
     public static class GlobalConfiguration
     {
-        public static IDataConnection Connection { get; private set; }
+        public const string PRIZESFILE = "Prizes.csv";
+        public const string PERSONSFILE = "Persons.csv";
+        public const string TEAMSFILE = "Teams.csv";
+        public const string TOURNAMENTFILE = "Tournaments.csv";
+        public const string MATCHUPFILE = "Matchups.csv";
+        public const string MATCHUPENTRYFILE = "MatchupEntries.csv";
 
+        public static IDataConnection Connection { get; private set; }
 
         public static void InitializeConnections(DatabaseType db)
         {

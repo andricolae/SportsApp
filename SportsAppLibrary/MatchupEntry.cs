@@ -8,7 +8,7 @@ namespace SportsAppLibrary
 {
     public class MatchupEntry
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// Models a team in a match of the competition
         /// </summary>
