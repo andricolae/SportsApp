@@ -148,10 +148,13 @@ namespace SportsAppLibrary.TextHelpers
                     tournament.Teams.Add(teams.Where(x => x.Id == int.Parse(id)).First());
                 }
 
-                string[] prizeId = cols[4].Split('|');
-                foreach(string id in prizeId)
+                if (cols[4].Length > 0)
                 {
-                    tournament.Prizes.Add(prizes.Where(x => x.Id == int.Parse(id)).First());
+                    string[] prizeId = cols[4].Split('|');
+                    foreach (string id in prizeId)
+                    {
+                        tournament.Prizes.Add(prizes.Where(x => x.Id == int.Parse(id)).First());
+                    } 
                 }
 
                 string[] rounds = cols[5].Split('|');
@@ -246,10 +249,7 @@ namespace SportsAppLibrary.TextHelpers
             List<string> lines = new List<string>();
             foreach (Tournament tournament in models)
             {
-                lines.Add($@"{tournament.Id},{tournament.TournamentName},{tournament.Fee},
-                            {ConvertTeamToString(tournament.Teams)},
-                            {ConvertPrizeToString(tournament.Prizes)},
-                            {ConvertRoundToString(tournament.Rounds)}");
+                lines.Add($@"{tournament.Id},{tournament.TournamentName},{tournament.Fee},{ConvertTeamToString(tournament.Teams)},{ConvertPrizeToString(tournament.Prizes)},{ConvertRoundToString(tournament.Rounds)}");
             }
             File.WriteAllLines(fileName.FullFilePath(), lines);
         }
@@ -289,25 +289,52 @@ namespace SportsAppLibrary.TextHelpers
         {
             string[] ids = input.Split('|');
             List<MatchupEntry> output = new List<MatchupEntry>();
-            List<MatchupEntry> entries = GlobalConfiguration.MATCHUPENTRYFILE.FullFilePath().LoadFile().ConvertToMatchupEntry();
+            List<string> entries = GlobalConfiguration.MATCHUPENTRYFILE.FullFilePath().LoadFile();
+            List<string> matchingEntries = new List<string>();
 
             foreach(string id in ids)
             {
-                output.Add(entries.Where(x => x.Id == int.Parse(id)).First());
+                foreach (string entry in entries)
+                {
+                    string[] cols = entry.Split(',');
+                    if (cols[0] == id)
+                    {
+                        matchingEntries.Add(entry);
+                    }
+                }
             }
+            output = matchingEntries.ConvertToMatchupEntry();
             return output;
         }
         private static Team FindTeamById(int id)
         {
-            List<Team> teams = GlobalConfiguration.TEAMSFILE.FullFilePath().LoadFile().ConvertToTeam(GlobalConfiguration.PERSONSFILE);
-            
-            return teams.Where(x => x.Id == id).First();
+            List<string> teams = GlobalConfiguration.TEAMSFILE.FullFilePath().LoadFile();
+            foreach (string team in teams)
+            {
+                string[] cols = team.Split(',');
+                if (cols[0] == id.ToString())
+                {
+                    List<string> matchingTeams = new List<string>();
+                    matchingTeams.Add(team);
+                    return matchingTeams.ConvertToTeam(GlobalConfiguration.PERSONSFILE).First();
+                }
+            }
+            return null;
         }
         private static Matchup FindMatchupById(int id)
         {
-            List<Matchup> matchups = GlobalConfiguration.MATCHUPFILE.FullFilePath().LoadFile().ConvertToMatchup();
-            
-            return matchups.Where(x => x.Id == id).First();
+            List<string> matchups = GlobalConfiguration.MATCHUPFILE.FullFilePath().LoadFile();
+            foreach (string match in matchups)
+            {
+                string[] cols = match.Split(',');
+                if (cols[0] == id.ToString())
+                {
+                    List<string> matchingMatchups = new List<string>();
+                    matchingMatchups.Add(match);
+                    return matchingMatchups.ConvertToMatchup().First();
+                }
+            }
+            return null;
         }
         public static List<Matchup> ConvertToMatchup(this List<string> lines)
         {
@@ -319,7 +346,14 @@ namespace SportsAppLibrary.TextHelpers
 
                 p.Id = int.Parse(cols[0]);
                 p.Entries = ConvertStringToMatchupEntry(cols[1]);
-                p.Winner = FindTeamById(int.Parse(cols[2]));
+                if (cols[2].Length == 0)
+                {
+                    p.Winner = null;
+                }
+                else
+                {
+                    p.Winner = FindTeamById(int.Parse(cols[2]));
+                }
                 p.MatchupRound = int.Parse(cols[3]);
                 output.Add(p);
             }
@@ -336,23 +370,23 @@ namespace SportsAppLibrary.TextHelpers
             match.Id = currentId;
             matchups.Add(match);
 
-            List<string> lines = new List<string>();
-            foreach (Matchup m in matchups)
-            {
-                string winner = "";
-                if (m.Winner != null)
-                {
-                    winner = m.Winner.Id.ToString();
-                }
-                lines.Add($"{m.Id},{""},{winner},{m.MatchupRound}");
-            }
-            File.WriteAllLines(GlobalConfiguration.MATCHUPFILE.FullFilePath(), lines);
+            //List<string> lines = new List<string>();
+            //foreach (Matchup m in matchups)
+            //{
+            //    string winner = "";
+            //    if (m.Winner != null)
+            //    {
+            //        winner = m.Winner.Id.ToString();
+            //    }
+            //    lines.Add($"{m.Id},{""},{winner},{m.MatchupRound}");
+            //}
+            //File.WriteAllLines(GlobalConfiguration.MATCHUPFILE.FullFilePath(), lines);
 
             foreach (MatchupEntry entry in match.Entries)
             {
                 entry.SaveToEntryFile(matchupEntryFile);
             }
-            lines = new List<string>();
+            List<string> lines = new List<string>();
             foreach (Matchup m in matchups)
             {
                 string winner = "";
