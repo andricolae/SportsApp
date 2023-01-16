@@ -198,7 +198,28 @@ namespace SportsAppUI
             {
                 MessageBox.Show("I can't stand ties!");
             }
+
+            foreach (List<Matchup> round in tournament.Rounds)
+            {
+                foreach (Matchup match in round)
+                {
+                    foreach (MatchupEntry entry in match.Entries)
+                    {
+                        if (entry.ParentMatchup != null)
+                        {
+                            if (entry.ParentMatchup.Id == match.Id)
+                            {
+                                entry.Team = m.Winner;
+                                GlobalConfiguration.Connection.UpdateMatchup(match);
+
+                            } 
+                        }
+                    }
+                }
+            }
+
             LoadMatchups((int)RoundDropDown.SelectedItem);
+
             GlobalConfiguration.Connection.UpdateMatchup(m);
         }
     }

@@ -281,17 +281,23 @@ namespace SportsAppLibrary
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfiguration.ConnectionString(DB)))
             {
                 var m = new DynamicParameters();
-                m.Add("@id", model.Id);
-                m.Add("@WinnerId", model.Winner.Id);
-                connection.Execute("dbo.spMatchup_Update", m, commandType: CommandType.StoredProcedure);
+                if (model.Winner != null)
+                {
+                    m.Add("@id", model.Id);
+                    m.Add("@WinnerId", model.Winner.Id);
+                    connection.Execute("dbo.spMatchup_Update", m, commandType: CommandType.StoredProcedure); 
+                }
 
                 foreach (MatchupEntry me in model.Entries)
                 {
-                    m = new DynamicParameters();
-                    m.Add("@id", me.Id);
-                    m.Add("@TeamCompetingId", me.Team.Id);
-                    m.Add("@Score", me.Score);
-                    connection.Execute("dbo.spMatchupEntry_Update", m, commandType: CommandType.StoredProcedure);
+                    if (me.Team != null)
+                    {
+                        m = new DynamicParameters();
+                        m.Add("@id", me.Id);
+                        m.Add("@TeamCompetingId", me.Team.Id);
+                        m.Add("@Score", me.Score);
+                        connection.Execute("dbo.spMatchupEntry_Update", m, commandType: CommandType.StoredProcedure); 
+                    }
                 }
             }
                 
