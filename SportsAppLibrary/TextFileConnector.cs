@@ -87,5 +87,10 @@ namespace SportsAppLibrary
         {
             return TOURNAMENTFILE.FullFilePath().LoadFile().ConvertToTournament(TEAMSFILE, PERSONSFILE, PRIZESFILE);
         }
+
+        public void UpdateMatchup(Matchup model)
+        {
+            model.UpdateMatchupFile();
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Net;
 using System.Reflection;
 using System.Text;
@@ -273,6 +274,27 @@ namespace SportsAppLibrary
                 }
             }
             return output;
+        }
+
+        public void UpdateMatchup(Matchup model)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfiguration.ConnectionString(DB)))
+            {
+                var m = new DynamicParameters();
+                m.Add("@id", model.Id);
+                m.Add("@WinnerId", model.Winner.Id);
+                connection.Execute("dbo.spMatchup_Update", m, commandType: CommandType.StoredProcedure);
+
+                foreach (MatchupEntry me in model.Entries)
+                {
+                    m = new DynamicParameters();
+                    m.Add("@id", me.Id);
+                    m.Add("@TeamCompetingId", me.Team.Id);
+                    m.Add("@Score", me.Score);
+                    connection.Execute("dbo.spMatchupEntry_Update", m, commandType: CommandType.StoredProcedure);
+                }
+            }
+                
         }
     }
 }

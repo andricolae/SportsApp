@@ -66,11 +66,32 @@ namespace SportsAppUI
                     selectedMatchups.Clear();
                     foreach (Matchup m in matchups)
                     {
-                        selectedMatchups.Add(m);
+                        if (m.Winner == null || !UnplayedOnlyCheckBox.Checked)
+                        {
+                            selectedMatchups.Add(m);
+                        }                    
                     }
                 }
             }
-            LoadMatchup(selectedMatchups.First());
+
+            if (selectedMatchups.Count > 0)
+            {
+                LoadMatchup(selectedMatchups.First());
+
+            }
+            DisplayMatchupCtrls();
+        }
+        private void DisplayMatchupCtrls()
+        {
+            bool visible = (selectedMatchups.Count > 0);
+            FirstTeamLabel.Visible = visible;
+            FirstTeamScoreLabel.Visible = visible;
+            FirstTeamScoreValue.Visible = visible;
+            SecondTeamLabel.Visible = visible;
+            SecondTeamScoreLabel.Visible = visible;
+            SecondTeamScoreValue.Visible = visible;
+            ScoreButton.Visible = visible;
+            vsLabel.Visible = visible;
         }
 
         private void LoadMatchup(Matchup m)
@@ -116,6 +137,69 @@ namespace SportsAppUI
                 MatchUpListBox.SetSelected(0, true);
             }
             LoadMatchup((Matchup)MatchUpListBox.SelectedItem);
+        }
+
+        private void UnplayedOnlyCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadMatchups((int)RoundDropDown.SelectedItem);
+        }
+
+        private void ScoreButton_Click(object sender, EventArgs e)
+        {
+            Matchup m = (Matchup)MatchUpListBox.SelectedItem;
+            double score1 = 0, score2 = 0;
+
+            for (int i = 0; i < m.Entries.Count; i++)
+            {
+                if (i == 0)
+                {
+                    if (m.Entries[0].Team != null)
+                    {
+                        bool scoreValid = double.TryParse(FirstTeamScoreValue.Text, out score1);
+
+                        if (scoreValid)
+                        {
+                            m.Entries[0].Score = score1;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please enter a valid score for team 1");
+                            return;
+                        }
+                    }
+                }
+                if (i == 1)
+                {
+                    if (m.Entries[1].Team != null)
+                    {
+                        bool scoreValid = double.TryParse(SecondTeamScoreValue.Text, out score2);
+
+                        if (scoreValid)
+                        {
+                            m.Entries[1].Score = score2;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please enter a valid score for team 2");
+                            return;
+                        }
+                    }
+                }
+            }
+            if (score1 > score2)
+            {
+                m.Winner = m.Entries[0].Team;
+            }
+            else if (score2 > score1)
+            {
+                m.Winner = m.Entries[1].Team;
+            }
+            else
+            {
+                MessageBox.Show("I can't stand ties!");
+            }
+            LoadMatchups((int)RoundDropDown.SelectedItem);
+            GlobalConfiguration.Connection.UpdateMatchup(m);
         }
     }
 }

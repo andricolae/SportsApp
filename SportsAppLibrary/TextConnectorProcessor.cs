@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SportsAppLibrary.TextHelpers
@@ -376,18 +377,6 @@ namespace SportsAppLibrary.TextHelpers
             match.Id = currentId;
             matchups.Add(match);
 
-            //List<string> lines = new List<string>();
-            //foreach (Matchup m in matchups)
-            //{
-            //    string winner = "";
-            //    if (m.Winner != null)
-            //    {
-            //        winner = m.Winner.Id.ToString();
-            //    }
-            //    lines.Add($"{m.Id},{""},{winner},{m.MatchupRound}");
-            //}
-            //File.WriteAllLines(GlobalConfiguration.MATCHUPFILE.FullFilePath(), lines);
-
             foreach (MatchupEntry entry in match.Entries)
             {
                 entry.SaveToEntryFile(matchupEntryFile);
@@ -441,6 +430,72 @@ namespace SportsAppLibrary.TextHelpers
                     match.SaveToMatchupFile(matchupFile, matchupEntryFile);
                 }
             }
+        }
+        public static void UpdateMatchupFile(this Matchup match)
+        {
+            List<Matchup> matchups = GlobalConfiguration.MATCHUPFILE.FullFilePath().LoadFile().ConvertToMatchup();
+
+            Matchup temp = new Matchup();
+            foreach (Matchup matchup in matchups)
+            {
+                if (matchup.Id == match.Id)
+                {
+                    temp = matchup;
+                }
+            }
+            matchups.Remove(temp);
+
+            matchups.Add(match);
+
+            foreach (MatchupEntry entry in match.Entries)
+            {
+                entry.UpdateEntryFile();
+            }
+            List<string> lines = new List<string>();
+            foreach (Matchup m in matchups)
+            {
+                string winner = "";
+                if (m.Winner != null)
+                {
+                    winner = m.Winner.Id.ToString();
+                }
+                lines.Add($"{m.Id},{ConvertMatchupEntryToString(m.Entries)},{winner},{m.MatchupRound}");
+            }
+            File.WriteAllLines(GlobalConfiguration.MATCHUPFILE.FullFilePath(), lines);
+        }
+        public static void UpdateEntryFile(this MatchupEntry entry)
+        {
+            List<MatchupEntry> entries = GlobalConfiguration.MATCHUPENTRYFILE.FullFilePath().LoadFile().ConvertToMatchupEntry();
+
+            MatchupEntry temp = new MatchupEntry();
+
+            foreach (MatchupEntry me in entries)
+            {
+                if (me.Id == entry.Id)
+                {
+                    temp = me;
+                }
+            }
+            entries.Remove(temp);
+
+            entries.Add(entry);
+
+            List<string> lines = new List<string>();
+            foreach (MatchupEntry e in entries)
+            {
+                string parent = "";
+                if (e.ParentMatchup != null)
+                {
+                    parent = e.ParentMatchup.Id.ToString();
+                }
+                string team = "";
+                if (e.Team != null)
+                {
+                    team = e.Team.Id.ToString();
+                }
+                lines.Add($"{e.Id},{team},{e.Score},{parent}");
+            }
+            File.WriteAllLines(GlobalConfiguration.MATCHUPENTRYFILE.FullFilePath(), lines);
         }
     }
 }

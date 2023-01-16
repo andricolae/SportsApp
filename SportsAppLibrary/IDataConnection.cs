@@ -15,5 +15,6 @@ namespace SportsAppLibrary
         List<Team> GetAllTeams();
         void CreateTournament(Tournament model);
         List<Tournament> GetTournaments();
+        void UpdateMatchup(Matchup model);
     }
 }
