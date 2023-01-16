@@ -9,7 +9,7 @@ namespace SportsAppLibrary
     public class MatchupEntry
     {
         public int Id { get; set; }
-        public int TeamId { get; set; }
+        public int TeamCompetingId { get; set; }
         /// <summary>
         /// Models a team in a match of the competition
         /// </summary>

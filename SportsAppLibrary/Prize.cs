@@ -29,8 +29,7 @@ namespace SportsAppLibrary
         /// The prize value in percentage
         /// </summary>
         public double Percentage { get; set; }
-        public Prize()
-        {}
+        public Prize() {}
         public Prize(string placeNumber, string placeName, string prizeAmount, string prizePercentage)
         {
             Place = int.Parse(placeNumber);

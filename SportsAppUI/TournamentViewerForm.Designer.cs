@@ -61,7 +61,7 @@
             this.TournamentNameLabel.AutoSize = true;
             this.TournamentNameLabel.Font = new System.Drawing.Font("Eras Demi ITC", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TournamentNameLabel.ForeColor = System.Drawing.Color.White;
-            this.TournamentNameLabel.Location = new System.Drawing.Point(255, 40);
+            this.TournamentNameLabel.Location = new System.Drawing.Point(252, 40);
             this.TournamentNameLabel.Name = "TournamentNameLabel";
             this.TournamentNameLabel.Size = new System.Drawing.Size(57, 43);
             this.TournamentNameLabel.TabIndex = 1;
@@ -83,6 +83,7 @@
             this.RoundDropDown.Name = "RoundDropDown";
             this.RoundDropDown.Size = new System.Drawing.Size(237, 39);
             this.RoundDropDown.TabIndex = 3;
+            this.RoundDropDown.SelectedIndexChanged += new System.EventHandler(this.RoundDropDown_SelectedIndexChanged);
             // 
             // UnplayedOnlyCheckBox
             // 
@@ -103,6 +104,7 @@
             this.MatchUpListBox.Name = "MatchUpListBox";
             this.MatchUpListBox.Size = new System.Drawing.Size(366, 252);
             this.MatchUpListBox.TabIndex = 5;
+            this.MatchUpListBox.SelectedIndexChanged += new System.EventHandler(this.MatchUpListBox_SelectedIndexChanged);
             // 
             // FirstTeamLabel
             // 
@@ -157,7 +159,7 @@
             // vsLabel
             // 
             this.vsLabel.AutoSize = true;
-            this.vsLabel.Location = new System.Drawing.Point(489, 262);
+            this.vsLabel.Location = new System.Drawing.Point(486, 262);
             this.vsLabel.Name = "vsLabel";
             this.vsLabel.Size = new System.Drawing.Size(112, 32);
             this.vsLabel.TabIndex = 12;

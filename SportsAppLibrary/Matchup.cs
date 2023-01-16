@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,5 +27,32 @@ namespace SportsAppLibrary
         /// Holds the round in which this match was played
         /// </summary>
         public int MatchupRound { get; set; }
+        public string Display
+        {
+            get
+            {
+                string output = "";
+                foreach(MatchupEntry me in Entries)
+                {
+                    if (me.Team != null)
+                    {
+                        if (output.Length == 0)
+                        {
+                            output = me.Team.TeamName;
+                        }
+                        else
+                        {
+                            output += $" vs. {me.Team.TeamName}";
+                        } 
+                    }
+                    else
+                    {
+                        output = "Too soon";
+                        break;
+                    }
+                }
+                return output;
+            }
+        }
     }
 }

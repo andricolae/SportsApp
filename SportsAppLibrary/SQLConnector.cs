@@ -210,41 +210,46 @@ namespace SportsAppLibrary
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfiguration.ConnectionString(DB)))
             {
                 output = connection.Query<Tournament>("dbo.spTournament_SelectAll").ToList();
-                foreach (Tournament tournament in output)
+                var p = new DynamicParameters();
+
+                foreach (Tournament t in output)
                 {
-                    var p = new DynamicParameters();
-                    p.Add("@TournamentId", tournament.Id);
-                    tournament.Prizes = connection.Query<Prize>("dbo.spPrize_GetByTournament", p, commandType: CommandType.StoredProcedure).ToList();
+                    p = new DynamicParameters();
+                    p.Add("@TournamentId", t.Id);
+                    t.Prizes = connection.Query<Prize>("dbo.spPrize_GetByTournament", p, commandType: CommandType.StoredProcedure).ToList();
 
                     p = new DynamicParameters();
-                    p.Add("@TournamentId", tournament.Id);
-                    tournament.Teams = connection.Query<Team>("dbo.spTeam_GetByTournament", p, commandType: CommandType.StoredProcedure).ToList();
-                    foreach (Team team in tournament.Teams)
+                    p.Add("@TournamentId", t.Id);
+                    t.Teams = connection.Query<Team>("dbo.spTeam_GetByTournament", p, commandType: CommandType.StoredProcedure).ToList();
+
+                    foreach (Team team in t.Teams)
                     {
-                        var t = new DynamicParameters();
-                        t.Add("@TeamId", team.Id);
-                        team.TeamMembers = connection.Query<Person>("dbo.spTeamMembers_SelectByTeam", t, commandType: CommandType.StoredProcedure).ToList();
+                        p = new DynamicParameters();
+                        p.Add("@TeamId", team.Id);
+                        team.TeamMembers = connection.Query<Person>("dbo.spTeamMembers_SelectByTeam", p, commandType: CommandType.StoredProcedure).ToList();
                     }
-                    p = new DynamicParameters();
-                    p.Add("@TournamentId", tournament.Id);
+
+                    p = new DynamicParameters();    
+                    p.Add("@TournamentId", t.Id);
                     List<Matchup> matchups = connection.Query<Matchup>("dbo.spMatchup_GetByTournament", p, commandType: CommandType.StoredProcedure).ToList();
-                    foreach (Matchup match in matchups)
+                    foreach (Matchup m in matchups)
                     {
-                        var t = new DynamicParameters();
-                        t.Add("@MatchupId", match.Id);
-                        match.Entries = connection.Query<MatchupEntry>("dbo.spMatchupEntry_GetByMatchup", t, commandType: CommandType.StoredProcedure).ToList();
+                        p = new DynamicParameters();
+                        p.Add("@MatchupId", m.Id);
+                        m.Entries = connection.Query<MatchupEntry>("dbo.spMatchupEntry_GetByMatchup", p, commandType: CommandType.StoredProcedure).ToList();
                        
-                        List<Team> teams = GetAllTeams();
-                        if (match.WinnerId > 0)
+                        List<Team> allTeams = GetAllTeams();
+                        
+                        if (m.WinnerId > 0)
                         {
-                            match.Winner = teams.Where(x => x.Id == match.WinnerId).First();
+                            m.Winner = allTeams.Where(x => x.Id == m.WinnerId).First();
                         }
 
-                        foreach (var me in match.Entries)
+                        foreach (var me in m.Entries)
                         {
-                            if (me.TeamId > 0)
+                            if (me.TeamCompetingId > 0)
                             {
-                                me.Team = teams.Where(x => x.Id == me.TeamId).First();
+                                me.Team = allTeams.Where(x => x.Id == me.TeamCompetingId).First();
                             }
                             if (me.ParentMatchupId > 0)
                             {
@@ -252,20 +257,19 @@ namespace SportsAppLibrary
                             }
                         }
                     }
-                    // rounds
                     List<Matchup> currentRow = new List<Matchup>();
                     int currentRound = 1;
-                    foreach (Matchup match in matchups)
+                    foreach (Matchup m in matchups)
                     {
-                        if (match.MatchupRound > currentRound)
+                        if (m.MatchupRound > currentRound)
                         {
-                            tournament.Rounds.Add(currentRow);
+                            t.Rounds.Add(currentRow);
                             currentRow = new List<Matchup>();
                             currentRound += 1;
                         }
-                        currentRow.Add(match);
+                        currentRow.Add(m);
                     }
-                    tournament.Rounds.Add(currentRow);
+                    t.Rounds.Add(currentRow);
                 }
             }
             return output;

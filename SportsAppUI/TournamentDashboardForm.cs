@@ -32,5 +32,12 @@ namespace SportsAppUI
             CreateTournamentForm form = new CreateTournamentForm();
             form.Show();
         }
+
+        private void LoadTournamentButton_Click(object sender, EventArgs e)
+        {
+            Tournament tournament = (Tournament)LoadExistingTournamentDropDown.SelectedItem;
+            TournamentViewerForm form = new TournamentViewerForm(tournament);
+            form.Show();
+        }
     }
 }
