@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -197,6 +199,73 @@ namespace SportsAppLibrary
                     var t = new DynamicParameters();
                     t.Add("@TeamId", team.Id);
                     team.TeamMembers = connection.Query<Person>("dbo.spTeamMembers_SelectByTeam", t, commandType: CommandType.StoredProcedure).ToList();
+                }
+            }
+            return output;
+        }
+        public List<Tournament> GetTournaments()
+        {
+            List<Tournament> output;
+
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfiguration.ConnectionString(DB)))
+            {
+                output = connection.Query<Tournament>("dbo.spTournament_SelectAll").ToList();
+                foreach (Tournament tournament in output)
+                {
+                    var p = new DynamicParameters();
+                    p.Add("@TournamentId", tournament.Id);
+                    tournament.Prizes = connection.Query<Prize>("dbo.spPrize_GetByTournament", p, commandType: CommandType.StoredProcedure).ToList();
+
+                    p = new DynamicParameters();
+                    p.Add("@TournamentId", tournament.Id);
+                    tournament.Teams = connection.Query<Team>("dbo.spTeam_GetByTournament", p, commandType: CommandType.StoredProcedure).ToList();
+                    foreach (Team team in tournament.Teams)
+                    {
+                        var t = new DynamicParameters();
+                        t.Add("@TeamId", team.Id);
+                        team.TeamMembers = connection.Query<Person>("dbo.spTeamMembers_SelectByTeam", t, commandType: CommandType.StoredProcedure).ToList();
+                    }
+                    p = new DynamicParameters();
+                    p.Add("@TournamentId", tournament.Id);
+                    List<Matchup> matchups = connection.Query<Matchup>("dbo.spMatchup_GetByTournament", p, commandType: CommandType.StoredProcedure).ToList();
+                    foreach (Matchup match in matchups)
+                    {
+                        var t = new DynamicParameters();
+                        t.Add("@MatchupId", match.Id);
+                        match.Entries = connection.Query<MatchupEntry>("dbo.spMatchupEntry_GetByMatchup", t, commandType: CommandType.StoredProcedure).ToList();
+                       
+                        List<Team> teams = GetAllTeams();
+                        if (match.WinnerId > 0)
+                        {
+                            match.Winner = teams.Where(x => x.Id == match.WinnerId).First();
+                        }
+
+                        foreach (var me in match.Entries)
+                        {
+                            if (me.TeamId > 0)
+                            {
+                                me.Team = teams.Where(x => x.Id == me.TeamId).First();
+                            }
+                            if (me.ParentMatchupId > 0)
+                            {
+                                me.ParentMatchup = matchups.Where(x => x.Id == me.ParentMatchupId).First();
+                            }
+                        }
+                    }
+                    // rounds
+                    List<Matchup> currentRow = new List<Matchup>();
+                    int currentRound = 1;
+                    foreach (Matchup match in matchups)
+                    {
+                        if (match.MatchupRound > currentRound)
+                        {
+                            tournament.Rounds.Add(currentRow);
+                            currentRow = new List<Matchup>();
+                            currentRound += 1;
+                        }
+                        currentRow.Add(match);
+                    }
+                    tournament.Rounds.Add(currentRow);
                 }
             }
             return output;

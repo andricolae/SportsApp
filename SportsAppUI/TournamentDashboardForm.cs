@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportsAppLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,24 @@ namespace SportsAppUI
 {
     public partial class TournamentDashboardForm : Form
     {
+        List<Tournament> tournaments = GlobalConfiguration.Connection.GetTournaments();
         public TournamentDashboardForm()
         {
             InitializeComponent();
+
+            LoadTournamentsList();
+        }
+
+        public void LoadTournamentsList()
+        {
+            LoadExistingTournamentDropDown.DataSource = tournaments;
+            LoadExistingTournamentDropDown.DisplayMember= "TournamentName";
+        }
+
+        private void CreateTournamentButton_Click(object sender, EventArgs e)
+        {
+            CreateTournamentForm form = new CreateTournamentForm();
+            form.Show();
         }
     }
 }

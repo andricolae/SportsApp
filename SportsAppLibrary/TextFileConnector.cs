@@ -82,5 +82,10 @@ namespace SportsAppLibrary
         {
             return TEAMSFILE.FullFilePath().LoadFile().ConvertToTeam(PERSONSFILE);
         }
+
+        public List<Tournament> GetTournaments()
+        {
+            return TOURNAMENTFILE.FullFilePath().LoadFile().ConvertToTournament(TEAMSFILE, PERSONSFILE, PRIZESFILE);
+        }
     }
 }

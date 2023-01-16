@@ -142,10 +142,13 @@ namespace SportsAppLibrary.TextHelpers
                 tournament.TournamentName = cols[1];
                 tournament.Fee = double.Parse(cols[2]);
 
-                string[] teamId = cols[3].Split('|');
-                foreach (string id in teamId)
+                if (cols[3].Length > 0)
                 {
-                    tournament.Teams.Add(teams.Where(x => x.Id == int.Parse(id)).First());
+                    string[] teamId = cols[3].Split('|');
+                    foreach (string id in teamId)
+                    {
+                        tournament.Teams.Add(teams.Where(x => x.Id == int.Parse(id)).First());
+                    } 
                 }
 
                 if (cols[4].Length > 0)
@@ -157,16 +160,19 @@ namespace SportsAppLibrary.TextHelpers
                     } 
                 }
 
-                string[] rounds = cols[5].Split('|');
-                foreach (string round in rounds)
+                if (cols[5].Length > 0)
                 {
-                    string[] msText = round.Split('^');
-                    List<Matchup> ms = new List<Matchup>();
-                    foreach (string matchupTextId in msText)
+                    string[] rounds = cols[5].Split('|');
+                    foreach (string round in rounds)
                     {
-                        ms.Add(matchups.Where(x => x.Id == int.Parse(matchupTextId)).First());
-                    }
-                    tournament.Rounds.Add(ms);
+                        string[] msText = round.Split('^');
+                        List<Matchup> ms = new List<Matchup>();
+                        foreach (string matchupTextId in msText)
+                        {
+                            ms.Add(matchups.Where(x => x.Id == int.Parse(matchupTextId)).First());
+                        }
+                        tournament.Rounds.Add(ms);
+                    } 
                 }
                 output.Add(tournament);
             }

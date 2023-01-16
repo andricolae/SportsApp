@@ -16,6 +16,8 @@ namespace SportsAppLibrary
         /// Consists in the teams matched up in a rounds match 
         /// </summary>
         public List<MatchupEntry> Entries { get; set; } = new List<MatchupEntry>();
+        public int WinnerId { get; set; }
+
         /// <summary>
         /// Contains the winner team in the match
         /// </summary>
