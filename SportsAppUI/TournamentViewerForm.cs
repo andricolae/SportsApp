@@ -144,8 +144,31 @@ namespace SportsAppUI
             LoadMatchups((int)RoundDropDown.SelectedItem);
         }
 
+        private string ValidateData()
+        {
+            string output = "";
+            double score1 = 0, score2 = 0;
+            bool score1Valid = double.TryParse(FirstTeamScoreValue.Text, out score1);
+            bool score2Valid = double.TryParse(SecondTeamScoreValue.Text, out score2);
+            if (!score1Valid || !score2Valid)
+            {
+                output = "Scores are not valid numbers";
+            }
+            if (score1 == score2 && score1Valid == true && score2Valid == true)
+            {
+                output = "Ties not allowed";
+            }
+            return output;
+        }
         private void ScoreButton_Click(object sender, EventArgs e)
         {
+            string err = ValidateData();
+            if (err.Length > 0)
+            {
+                MessageBox.Show($"Error: {err}");
+                return;
+            }
+
             Matchup m = (Matchup)MatchUpListBox.SelectedItem;
             double score1 = 0, score2 = 0;
 
@@ -186,17 +209,24 @@ namespace SportsAppUI
                     }
                 }
             }
-            if (score1 > score2)
+            try
             {
-                m.Winner = m.Entries[0].TeamCompeting;
+                if (score1 > score2)
+                {
+                    m.Winner = m.Entries[0].TeamCompeting;
+                }
+                else if (score2 > score1)
+                {
+                    m.Winner = m.Entries[1].TeamCompeting;
+                }
+                else
+                {
+                    throw new Exception("I can't stand ties!");
+                }
             }
-            else if (score2 > score1)
+            catch (Exception exc)
             {
-                m.Winner = m.Entries[1].TeamCompeting;
-            }
-            else
-            {
-                MessageBox.Show("I can't stand ties!");
+                MessageBox.Show($"Application had an error>>> {exc.Message}");
             }
 
             foreach (List<Matchup> round in tournament.Rounds)
@@ -217,7 +247,7 @@ namespace SportsAppUI
                 }
             }
             LoadMatchups((int)RoundDropDown.SelectedItem);
-
+           
             GlobalConfiguration.Connection.UpdateMatchup(m);
         }
     }

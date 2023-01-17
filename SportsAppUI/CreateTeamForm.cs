@@ -33,8 +33,30 @@ namespace SportsAppUI
             TeamMembersListBox.DataSource = null;
             TeamMembersListBox.DataSource = addedTeamMembers;
             TeamMembersListBox.DisplayMember = "FullName";
-        } 
+        }
 
+        // TODO - Validate member data at adding 
+        // TODO - Team members list can t be empty at member adding
+        // TODO - Team name can t be empty
+        private string ValidateData()
+        {
+            string output = "";
+            bool feeOK = double.TryParse(EntryFeeTextBox.Text, out double fee);
+
+            if (TournamentNameTextBox.Text.Length == 0)
+            {
+                output = "\nTournament must have a name";
+            }
+            if (!feeOK)
+            {
+                output += "\nFee must be a number";
+            }
+            if (addedTeams.Count < 2)
+            {
+                output += "\nTournament must have at least 2 teams";
+            }
+            return output;
+        }
         private bool ValidateForm()
         {
             bool output = true;

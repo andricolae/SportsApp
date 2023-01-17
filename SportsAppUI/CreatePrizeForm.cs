@@ -22,66 +22,53 @@ namespace SportsAppUI
             callingForm = caller;
         }
 
-        // TODO - Alert the user of all the specific invalid fields
-        private bool ValidateForm()
+        private string ValidateData()
         {
-            bool output = true;
-            int placeNumber = 0;
-            bool placeNumberValid = int.TryParse(PlaceNumberTextBox.Text, out placeNumber);
-            decimal prizeAmount = 0;
-            double prizePercentage = 0;
-            bool prizeAmountValid = decimal.TryParse(PrizeAmountTextBox.Text, out prizeAmount);
-            bool prizePercentageValid = double.TryParse(PrizePercentageTextBox.Text, out prizePercentage);
+            string output = "";
+            bool placeNumberValid = int.TryParse(PlaceNumberTextBox.Text, out int placeNumber);
+            bool prizeAmountValid = decimal.TryParse(PrizeAmountTextBox.Text, out decimal prizeAmount);
+            bool prizePercentageValid = double.TryParse(PrizePercentageTextBox.Text, out double prizePercentage);
 
-            if (!placeNumberValid)
+            if (!placeNumberValid || placeNumber > 5 || placeNumber < 1)
             {
-                output = false;
-            }
-            if (placeNumber < 1)
-            {
-                output = false;
+                output = "\nPlace number must be a digit between 1 and 5";
             }
             if (PlaceNameTextBox.Text.Length == 0)
             {
-                output = false;
+                output += "\nPlace name can not be empty";
             }
-            if (!prizeAmountValid || !prizePercentageValid)
+            if (!prizeAmountValid || !prizePercentageValid || (prizeAmount <= 0 && prizePercentage <= 0))
             {
-                output = false;
-            }
-            if (prizeAmount <= 0 && prizePercentage <= 0)
-            {
-                output = false;
+                output += "\nPrize amount and percentage must be numbers and can not be both 0 and/or negative";
             }
             if (prizePercentage < 0 || prizePercentage > 100)
             {
-                output = false;
+                output += "\nPrize percentage must be in range 1 - 100";
             }
             return output;
         }
 
         private void CreatePrizeButton_Click(object sender, EventArgs e)
         {
-            if (ValidateForm())
+            string err = ValidateData();
+            if (err.Length > 0)
             {
-                Prize model = new Prize(PlaceNumberTextBox.Text, PlaceNameTextBox.Text,
-                    PrizeAmountTextBox.Text, PrizePercentageTextBox.Text);
-
-                GlobalConfiguration.Connection.CreatePrize(model);
-
-                callingForm.PrizeCreated(model);
-
-                this.Close();
-
-                PlaceNumberTextBox.Text = "";
-                PlaceNameTextBox.Text = "";
-                PrizeAmountTextBox.Text = "0"; 
-                PrizePercentageTextBox.Text = "0";
+                MessageBox.Show($"Error: {err}");
+                return;
             }
-            else
-            {
-                MessageBox.Show("Invalid Information in the Form !");
-            }
+            Prize model = new Prize(PlaceNumberTextBox.Text, PlaceNameTextBox.Text,
+                PrizeAmountTextBox.Text, PrizePercentageTextBox.Text);
+
+            GlobalConfiguration.Connection.CreatePrize(model);
+
+            callingForm.PrizeCreated(model);
+
+            this.Close();
+
+            PlaceNumberTextBox.Text = "";
+            PlaceNameTextBox.Text = "";
+            PrizeAmountTextBox.Text = "0"; 
+            PrizePercentageTextBox.Text = "0";            
         }
     }
 }

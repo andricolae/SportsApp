@@ -23,6 +23,25 @@ namespace SportsAppUI
             PopulateLists();
         }
 
+        private string ValidateData()
+        {
+            string output = "";
+            bool feeOK = double.TryParse(EntryFeeTextBox.Text, out double fee);
+
+            if (TournamentNameTextBox.Text.Length == 0)
+            {
+                output = "\nTournament must have a name";
+            }
+            if (!feeOK)
+            {
+                output += "\nFee must be a number";
+            }
+            if (addedTeams.Count < 2)
+            {
+                output += "\nTournament must have at least 2 teams";
+            }
+            return output;
+        }
         private void PopulateLists()
         {
             SelectTeamDropDown.DataSource = null;
@@ -49,12 +68,10 @@ namespace SportsAppUI
                 PopulateLists();
             }
         }
-
         private void CreatePrizeButton_Click(object sender, EventArgs e)
         {
             CreatePrizeForm form = new CreatePrizeForm(this);
             form.Show();
-
         }
 
         public void PrizeCreated(Prize model)
@@ -98,18 +115,16 @@ namespace SportsAppUI
 
         private void CreateTournamentButton_Click(object sender, EventArgs e)
         {
-            double fee = 0;
-            bool feeOK = double.TryParse(EntryFeeTextBox.Text, out fee);
-            if (!feeOK)
+            string err = ValidateData();
+            if (err.Length > 0)
             {
-                MessageBox.Show("Entry Fee not valid!", "Valid number needed", 
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: {err}");
                 return;
             }
 
             Tournament tournament = new Tournament();
             tournament.TournamentName = TournamentNameTextBox.Text;
-            tournament.Fee = fee;
+            tournament.Fee = double.Parse(EntryFeeTextBox.Text);
 
             foreach (Prize prize in addedPrizes) 
             {
