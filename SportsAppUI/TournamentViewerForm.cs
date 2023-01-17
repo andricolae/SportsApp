@@ -106,7 +106,7 @@ namespace SportsAppUI
                         FirstTeamScoreValue.Text = m.Entries[0].Score.ToString();
 
                         SecondTeamLabel.Text = "<dummy>";
-                        SecondTeamScoreValue.Text = "";
+                        SecondTeamScoreValue.Text = "0";
                     }
                     else
                     {
@@ -125,9 +125,13 @@ namespace SportsAppUI
                     else
                     {
                         SecondTeamLabel.Text = "Too Soon";
-                        SecondTeamScoreValue.Text = m.Entries[0].Score.ToString();
+                        SecondTeamScoreValue.Text = m.Entries[1].Score.ToString();
                     }
                 }
+            }
+            if (SecondTeamLabel.Text.Equals("<dummy>"))
+            {
+                FirstTeamScoreValue.Text = "1";
             }
         }
         private void MatchUpListBox_SelectedIndexChanged(object sender, EventArgs e)
