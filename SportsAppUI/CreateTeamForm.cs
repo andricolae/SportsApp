@@ -7,8 +7,10 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace SportsAppUI
 {
@@ -35,75 +37,84 @@ namespace SportsAppUI
             TeamMembersListBox.DisplayMember = "FullName";
         }
 
-        // TODO - Validate member data at adding 
-        // TODO - Team members list can t be empty at member adding
-        // TODO - Team name can t be empty
-        private string ValidateData()
+        private string ValidateTeamData()
         {
             string output = "";
-            bool feeOK = double.TryParse(EntryFeeTextBox.Text, out double fee);
-
-            if (TournamentNameTextBox.Text.Length == 0)
+            if (TeamNameTextBox.Text.Length == 0)
             {
-                output = "\nTournament must have a name";
+                output = "\nTeam must have a name";
             }
-            if (!feeOK)
+            if (addedTeamMembers.Count < 1)
             {
-                output += "\nFee must be a number";
-            }
-            if (addedTeams.Count < 2)
-            {
-                output += "\nTournament must have at least 2 teams";
+                output += "\nTeams must have at least 1 member";
             }
             return output;
         }
-        private bool ValidateForm()
+        private string ValidateMemberData()
         {
-            bool output = true;
+            string output = "";
             if (FirstNameTextBox.Text.Length == 0)
             {
-                output = false;
+                output = "\nTeam Member must have at least a first name";
             }
-            if (LastNameTextBox.Text.Length == 0)
+            if (EmailTextBox.Text.Length != 0 || PhoneTextBox.Text.Length != 0)
             {
-                output = false;
+                string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|ro)$";
+                if (EmailTextBox.Text.Length != 0)
+                {
+                    bool validEmail = Regex.IsMatch(EmailTextBox.Text, regex, RegexOptions.IgnoreCase);
+                    if (!validEmail)
+                    {
+                        output += "\nMember Email not valid";
+                    }
+                }
+                if (PhoneTextBox.Text.Length != 0)
+                {
+                    bool validPhone = true;
+                    foreach (char c in PhoneTextBox.Text)
+                    {
+                        if (!Char.IsDigit(c))
+                        {
+                            validPhone = false;
+                            break;
+                        }
+                    }
+                    if (!validPhone)
+                    {
+                        output += "\nMember Phone not valid";
+                    }
+                }
             }
-            if (EmailTextBox.Text.Length == 0)
+            else
             {
-                output = false;
-            }
-            if (PhoneTextBox.Text.Length == 0)
-            {
-                output = false;
+                output += "\nMember must have an email or phone number";
             }
             return output;
         }
 
         private void CreateMemberButton_Click(object sender, EventArgs e)
         {
-            if (ValidateForm())
+            string err = ValidateMemberData();
+            if (err.Length > 0)
             {
-                Person model = new Person();
-                model.FirstName = FirstNameTextBox.Text;
-                model.LastName = LastNameTextBox.Text;
-                model.Email = EmailTextBox.Text;
-                model.Phone = PhoneTextBox.Text;
-
-                model = GlobalConfiguration.Connection.CreatePerson(model);
-
-                addedTeamMembers.Add(model);
-                PopulateLists();
-
-                FirstNameTextBox.Text = "";
-                LastNameTextBox.Text = "";
-                EmailTextBox.Text = "";
-                PhoneTextBox.Text = "";
+                MessageBox.Show($"Error: {err}");
+                return;
             }
-            else
-            {
-                MessageBox.Show("There is missing information in the Form!");
-            }
-            
+            Person model = new Person();
+            model.FirstName = FirstNameTextBox.Text;
+            model.LastName = LastNameTextBox.Text;
+            model.Email = EmailTextBox.Text;
+            model.Phone = PhoneTextBox.Text;
+
+            model = GlobalConfiguration.Connection.CreatePerson(model);
+
+            addedTeamMembers.Add(model);
+            PopulateLists();
+
+            FirstNameTextBox.Text = "";
+            LastNameTextBox.Text = "";
+            EmailTextBox.Text = "";
+            PhoneTextBox.Text = "";
         }
 
         private void AddTeamMemberButton_Click(object sender, EventArgs e)
@@ -131,6 +142,12 @@ namespace SportsAppUI
 
         private void CreateTeamtButton_Click(object sender, EventArgs e)
         {
+            string err = ValidateTeamData();
+            if (err.Length > 0)
+            {
+                MessageBox.Show($"Error: {err}");
+                return;
+            }
             Team team = new Team();
             team.TeamName = TeamNameTextBox.Text;
             team.TeamMembers = addedTeamMembers;
