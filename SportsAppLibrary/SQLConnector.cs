@@ -146,13 +146,13 @@ namespace SportsAppLibrary
                         {
                             r.Add("@ParentMatchupId", entry.ParentMatchup.Id);
                         }
-                        if (entry.Team == null)
+                        if (entry.TeamCompeting == null)
                         {
                             r.Add("@TeamCompetingId", null);
                         }
                         else
                         {
-                            r.Add("@TeamCompetingId", entry.Team.Id);
+                            r.Add("@TeamCompetingId", entry.TeamCompeting.Id);
 
                         }
                         r.Add("@id", 0, dbType: DbType.Int32, direction: ParameterDirection.Output);
@@ -250,7 +250,7 @@ namespace SportsAppLibrary
                         {
                             if (me.TeamCompetingId > 0)
                             {
-                                me.Team = allTeams.Where(x => x.Id == me.TeamCompetingId).First();
+                                me.TeamCompeting = allTeams.Where(x => x.Id == me.TeamCompetingId).First();
                             }
                             if (me.ParentMatchupId > 0)
                             {
@@ -290,11 +290,11 @@ namespace SportsAppLibrary
 
                 foreach (MatchupEntry me in model.Entries)
                 {
-                    if (me.Team != null)
+                    if (me.TeamCompeting != null)
                     {
                         m = new DynamicParameters();
                         m.Add("@id", me.Id);
-                        m.Add("@TeamCompetingId", me.Team.Id);
+                        m.Add("@TeamCompetingId", me.TeamCompeting.Id);
                         m.Add("@Score", me.Score);
                         connection.Execute("dbo.spMatchupEntry_Update", m, commandType: CommandType.StoredProcedure); 
                     }

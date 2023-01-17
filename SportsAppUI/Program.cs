@@ -17,7 +17,6 @@ namespace SportsAppUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Initialize the DB connections
             SportsAppLibrary.GlobalConfiguration.InitializeConnections(SportsAppLibrary.DatabaseType.Sql);
 
             Application.Run(new TournamentDashboardForm());

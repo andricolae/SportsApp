@@ -34,15 +34,15 @@ namespace SportsAppLibrary
                 string output = "";
                 foreach(MatchupEntry me in Entries)
                 {
-                    if (me.Team != null)
+                    if (me.TeamCompeting != null)
                     {
                         if (output.Length == 0)
                         {
-                            output = me.Team.TeamName;
+                            output = me.TeamCompeting.TeamName;
                         }
                         else
                         {
-                            output += $" vs. {me.Team.TeamName}";
+                            output += $" vs. {me.TeamCompeting.TeamName}";
                         } 
                     }
                     else

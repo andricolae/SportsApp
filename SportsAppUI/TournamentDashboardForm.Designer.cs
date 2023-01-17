@@ -34,6 +34,7 @@
             this.LoadExistingTournamentLabel = new System.Windows.Forms.Label();
             this.LoadTournamentButton = new System.Windows.Forms.Button();
             this.CreateTournamentButton = new System.Windows.Forms.Button();
+            this.ReloadTournamentsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TournamentDashboardLabel
@@ -67,7 +68,7 @@
             // LoadTournamentButton
             // 
             this.LoadTournamentButton.ForeColor = System.Drawing.Color.Black;
-            this.LoadTournamentButton.Location = new System.Drawing.Point(177, 250);
+            this.LoadTournamentButton.Location = new System.Drawing.Point(174, 286);
             this.LoadTournamentButton.Name = "LoadTournamentButton";
             this.LoadTournamentButton.Size = new System.Drawing.Size(261, 41);
             this.LoadTournamentButton.TabIndex = 38;
@@ -87,12 +88,25 @@
             this.CreateTournamentButton.UseVisualStyleBackColor = true;
             this.CreateTournamentButton.Click += new System.EventHandler(this.CreateTournamentButton_Click);
             // 
+            // ReloadTournamentsButton
+            // 
+            this.ReloadTournamentsButton.Font = new System.Drawing.Font("Eras Demi ITC", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReloadTournamentsButton.ForeColor = System.Drawing.Color.Black;
+            this.ReloadTournamentsButton.Location = new System.Drawing.Point(212, 239);
+            this.ReloadTournamentsButton.Name = "ReloadTournamentsButton";
+            this.ReloadTournamentsButton.Size = new System.Drawing.Size(188, 28);
+            this.ReloadTournamentsButton.TabIndex = 44;
+            this.ReloadTournamentsButton.Text = "Reload Tournaments";
+            this.ReloadTournamentsButton.UseVisualStyleBackColor = true;
+            this.ReloadTournamentsButton.Click += new System.EventHandler(this.ReloadTournamentsButton_Click);
+            // 
             // TournamentDashboardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(619, 449);
+            this.Controls.Add(this.ReloadTournamentsButton);
             this.Controls.Add(this.CreateTournamentButton);
             this.Controls.Add(this.LoadTournamentButton);
             this.Controls.Add(this.LoadExistingTournamentDropDown);
@@ -116,5 +130,6 @@
         private System.Windows.Forms.Label LoadExistingTournamentLabel;
         private System.Windows.Forms.Button LoadTournamentButton;
         private System.Windows.Forms.Button CreateTournamentButton;
+        private System.Windows.Forms.Button ReloadTournamentsButton;
     }
 }

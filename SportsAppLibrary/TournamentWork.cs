@@ -41,7 +41,7 @@ namespace SportsAppLibrary
 
             foreach(Team team in teams)
             {
-                current.Entries.Add(new MatchupEntry {Team = team});
+                current.Entries.Add(new MatchupEntry {TeamCompeting = team});
                 if (dummy > 0 || current.Entries.Count > 1)
                 {
                     current.MatchupRound = 1;

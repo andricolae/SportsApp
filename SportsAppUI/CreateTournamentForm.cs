@@ -124,6 +124,10 @@ namespace SportsAppUI
             TournamentWork.CreateRounds(tournament);
 
             GlobalConfiguration.Connection.CreateTournament(tournament);
+
+            this.Close();
+            TournamentViewerForm form = new TournamentViewerForm(tournament);
+            form.Show();
         }
     }
 }

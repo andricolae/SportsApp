@@ -17,7 +17,6 @@ namespace SportsAppUI
         public TournamentDashboardForm()
         {
             InitializeComponent();
-
             LoadTournamentsList();
         }
 
@@ -38,6 +37,11 @@ namespace SportsAppUI
             Tournament tournament = (Tournament)LoadExistingTournamentDropDown.SelectedItem;
             TournamentViewerForm form = new TournamentViewerForm(tournament);
             form.Show();
+        }
+        private void ReloadTournamentsButton_Click(object sender, EventArgs e)
+        {
+            tournaments = GlobalConfiguration.Connection.GetTournaments();
+            LoadTournamentsList();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace SportsAppLibrary
         /// <summary>
         /// Models a team in a match of the competition
         /// </summary>
-        public Team Team { get; set; }
+        public Team TeamCompeting { get; set; }
         /// <summary>
         /// Sets the score for this team in the particular game
         /// </summary>

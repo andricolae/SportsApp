@@ -100,13 +100,13 @@ namespace SportsAppUI
             {
                 if (i == 0)
                 {
-                    if (m.Entries[0].Team != null)
+                    if (m.Entries[0].TeamCompeting != null)
                     {
-                        FirstTeamLabel.Text = m.Entries[0].Team.TeamName;
+                        FirstTeamLabel.Text = m.Entries[0].TeamCompeting.TeamName;
                         FirstTeamScoreValue.Text = m.Entries[0].Score.ToString();
 
                         SecondTeamLabel.Text = "<dummy>";
-                        SecondTeamScoreValue.Text = m.Entries[0].Score.ToString();
+                        SecondTeamScoreValue.Text = "";
                     }
                     else
                     {
@@ -117,9 +117,9 @@ namespace SportsAppUI
                 }
                 if (i == 1)
                 {
-                    if (m.Entries[1].Team != null)
+                    if (m.Entries[1].TeamCompeting != null)
                     {
-                        SecondTeamLabel.Text = m.Entries[1].Team.TeamName;
+                        SecondTeamLabel.Text = m.Entries[1].TeamCompeting.TeamName;
                         SecondTeamScoreValue.Text = m.Entries[1].Score.ToString();
                     }
                     else
@@ -151,9 +151,9 @@ namespace SportsAppUI
 
             for (int i = 0; i < m.Entries.Count; i++)
             {
-                if (i == 0)
+                if (i == 0) 
                 {
-                    if (m.Entries[0].Team != null)
+                    if (m.Entries[0].TeamCompeting != null)
                     {
                         bool scoreValid = double.TryParse(FirstTeamScoreValue.Text, out score1);
 
@@ -170,7 +170,7 @@ namespace SportsAppUI
                 }
                 if (i == 1)
                 {
-                    if (m.Entries[1].Team != null)
+                    if (m.Entries[1].TeamCompeting != null)
                     {
                         bool scoreValid = double.TryParse(SecondTeamScoreValue.Text, out score2);
 
@@ -188,11 +188,11 @@ namespace SportsAppUI
             }
             if (score1 > score2)
             {
-                m.Winner = m.Entries[0].Team;
+                m.Winner = m.Entries[0].TeamCompeting;
             }
             else if (score2 > score1)
             {
-                m.Winner = m.Entries[1].Team;
+                m.Winner = m.Entries[1].TeamCompeting;
             }
             else
             {
@@ -201,23 +201,21 @@ namespace SportsAppUI
 
             foreach (List<Matchup> round in tournament.Rounds)
             {
-                foreach (Matchup match in round)
+                foreach (Matchup rm in round)
                 {
-                    foreach (MatchupEntry entry in match.Entries)
+                    foreach (MatchupEntry me in rm.Entries)
                     {
-                        if (entry.ParentMatchup != null)
+                        if (me.ParentMatchup != null)
                         {
-                            if (entry.ParentMatchup.Id == match.Id)
+                            if (me.ParentMatchup.Id == m.Id)
                             {
-                                entry.Team = m.Winner;
-                                GlobalConfiguration.Connection.UpdateMatchup(match);
-
+                                me.TeamCompeting = m.Winner;
+                                GlobalConfiguration.Connection.UpdateMatchup(rm);
                             } 
                         }
                     }
                 }
             }
-
             LoadMatchups((int)RoundDropDown.SelectedItem);
 
             GlobalConfiguration.Connection.UpdateMatchup(m);

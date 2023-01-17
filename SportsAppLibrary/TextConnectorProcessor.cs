@@ -271,11 +271,11 @@ namespace SportsAppLibrary.TextHelpers
                 m.Id = int.Parse(cols[0]);
                 if (cols[1].Length == 0)
                 {
-                    m.Team = null;
+                    m.TeamCompeting = null;
                 }
                 else
                 {
-                    m.Team = FindTeamById(int.Parse(cols[1]));
+                    m.TeamCompeting = FindTeamById(int.Parse(cols[1]));
                 }
                 m.Score = double.Parse(cols[2]);
 
@@ -413,9 +413,9 @@ namespace SportsAppLibrary.TextHelpers
                     parent = e.ParentMatchup.Id.ToString();
                 }
                 string team = "";
-                if (e.Team != null)
+                if (e.TeamCompeting != null)
                 {
-                    team = e.Team.Id.ToString();
+                    team = e.TeamCompeting.Id.ToString();
                 }
                 lines.Add($"{e.Id},{team},{e.Score},{parent}");
             }
@@ -489,9 +489,9 @@ namespace SportsAppLibrary.TextHelpers
                     parent = e.ParentMatchup.Id.ToString();
                 }
                 string team = "";
-                if (e.Team != null)
+                if (e.TeamCompeting != null)
                 {
-                    team = e.Team.Id.ToString();
+                    team = e.TeamCompeting.Id.ToString();
                 }
                 lines.Add($"{e.Id},{team},{e.Score},{parent}");
             }
